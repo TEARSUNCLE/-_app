@@ -3,15 +3,20 @@
 		{
 			"path": "pages/home/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "去哪儿旅行-首页",
+				"app-plus": {
+					"titleNView": false	// 去除app+h5顶部导航
+					}
+				}
 			}
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	},
-	"uniIdRouter": {}
-}
+		],
+		"globalStyle": {
+			"navigationBarTextStyle": "black",
+			// "navigationBarTitleText": "uni-app",
+			"navigationBarBackgroundColor": "#F8F8F8",
+			"backgroundColor": "#F8F8F8",
+
+			"navigationStyle": "custom"
+		},
+		"uniIdRouter": {}
+	}

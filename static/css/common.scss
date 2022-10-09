@@ -760,19 +760,25 @@ page{
   color: #f5f5f5;
 }
 
-.flexBox{
+.flex{
   display: flex;
-  justify-content: center;
-  align-items: center;
+}
+.jc-center {
+	justify-content: center;
+}
+.jc-around {
+	justify-content: space-around;
+}
+.jc-between {
+	justify-content: space-between;
+}
+.align-items-y {
+	align-items: center;
+}
+.flexWrap {
+	flex-wrap: wrap;
 }
 
 .flexRow{
   flex-direction: row  !important;
-}
-.textNewLine {
-	display:inline-block;
-	white-space: pre-wrap; 
-	word-wrap: break-word;
-	height: auto;
-	width: 100%;
 }
