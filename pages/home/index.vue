@@ -1,4 +1,8 @@
 <template>
+	<van-popup v-model:show="cityStatus" position="top" closeable :style="{ height: '100vh' }" >
+		<CitySelect  @cityVal="cityVal" />
+	</van-popup>
+	
 	<van-nav-bar class="searchBox">
 		<template #left>
 		  <van-icon name="arrow-left" style="color:#fff" size="18" />
@@ -7,9 +11,10 @@
 		<van-search v-model="iptVal" placeholder="输入城市/景点/游玩主题" background="#52bad0" />
 		</template>
 	  <template #right>
-	    <van-dropdown-menu style="margin-left: 1vw;">
-	      <van-dropdown-item v-model="currentCity" :options="cityOptions" />
-	    </van-dropdown-menu>
+		  <div class="topCity">
+			<div @click="cityStatus = true" class="c-fff">{{ currentCity }}</div>
+			<div class="topCityIcon"></div>
+		  </div>
 	  </template>
 	</van-nav-bar>
 	
@@ -18,24 +23,6 @@
 	    <img :src="item.img" class="img" />
 	  </van-swipe-item>
 	</van-swipe>
-		
-	<!-- <van-swipe
-		:autoplay="false" 
-		:show-indicators="false" 
-		:duration="500" 
-		:loop="false"
-		class="mt20"
-		v-if="changeArr.length"
-	>
-		<van-swipe-item v-for="item in changeArr" :key="item">
-			<template class="iconBox">
-				<div v-for="i in item" :key="i.id" style="width: 25vw;text-align: center;">
-					<img :src="i.icon" alt="">
-					<view class="mt10 mb5">{{ i.text }}</view>
-				</div>
-			</template>
-		</van-swipe-item>
-	</van-swipe> -->
 		
 	<swiper 
 		circular 
@@ -83,17 +70,28 @@
 </template>
 
 <script setup>
-	import { ref, onMounted, nextTick } from 'vue'
+	import { ref, onMounted } from 'vue'
 	import { bannerList, cityOptions, list, recommendList, weekendList } from '@/mock/commonData.js'
+	import cityList from '@/mock/cityData.js'
+	import CitySelect from '../city/index.vue'
 
 	const iptVal = ref()
 	
-	const currentCity = ref(0)
+	const currentCity = ref('北京')
 	
 	const changeArr = ref([])
 	const changeList = () => {
 		for (let i = 0; i < list.length; i += 8) {
 			changeArr.value.push(list.slice(i, i + 8))
+		}
+	}
+	
+	const cityStatus = ref(false)
+	
+	const cityVal = (val) => {
+		if (val){
+			currentCity.value = val
+			cityStatus.value = false
 		}
 	}
 	
@@ -160,5 +158,36 @@
 }
 .weekendList img {
 	width: 100vw;
+}
+
+.topCity {
+	width: 12vw;
+	position: relative;
+	text-overflow: ellipsis;
+	
+	div {
+		// nvue设置
+		lines:1;
+		
+		overflow: hidden;
+		display: -webkit-box;
+		
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+	}
+	.topCityIcon {
+		position: absolute;
+		top: 50%;
+		right: -5rpx;
+		margin-top: -10rpx;
+		border: 3px solid;
+		border-top-color: currentcolor;
+		border-right-color: currentcolor;
+		border-bottom-color: currentcolor;
+		border-left-color: currentcolor;
+		border-color: transparent transparent var(--van-gray-4) var(--van-gray-4);
+		transform: rotate(-45deg);
+		content: "";
+	}
 }
 </style>
